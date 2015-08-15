@@ -1,0 +1,158 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="accounting-import.html">
+
+<!--
+Element wrapper for the [accounting.js](http://openexchangerates.github.io/accounting.js/) library.
+
+@element accounting-element
+
+Example:
+
+    <accounting-element formatMoney="1234566"></accounting-element> // $1,234,566.00
+
+@demo
+-->
+<dom-module id="accounting-element">
+
+  <template>
+    <div id="content"></div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'accounting-element',
+
+    properties: {
+      /**
+       * @property formatMoney
+       * @type Number
+       * @default null
+       */
+      formatMoney: {
+        type: Number,
+        value: null
+      },
+      /**
+       * @property formatColumn
+       * @type Array
+       * @default null
+       */
+      formatColumn: {
+        type: Array,
+        value: null
+      },
+      /**
+       * @property formatNumber
+       * @type Number
+       * @default null
+       */
+      formatNumber: {
+        type: Number,
+        value: null
+      },
+      /**
+       * @property toFixed
+       * @type Number
+       * @default null
+       */
+      toFixed: {
+        type: Number,
+        value: null
+      },
+      /**
+       * @property unformat
+       * @type Number
+       * @default null
+       */
+      unformat: {
+        type: String,
+        value: null,
+        observer: '_unformat'
+      },
+      /**
+       * @property symbol
+       * @type String
+       * @default $
+       */
+      symbol: {
+        type: String,
+        value: '$'
+      },
+      /**
+       * @property precision
+       * @type Number
+       * @default null
+       */
+      precision: {
+        type: Number,
+        value: null
+      }
+    },
+    observers: [
+      '_formatMoney(formatMoney, symbol)',
+      '_formatColumn(formatColumn, symbol)',
+      '_formatNumber(formatNumber, precision)',
+      '_toFixed(toFixed, precision)'
+    ],
+    /**
+     * @method _formatMoney
+     * @private
+     */
+    _formatMoney: function(newValue) {
+      if(newValue) {
+        this._render(accounting.formatMoney(newValue, this.symbol));
+      }
+    },
+    /**
+     * @method _formatColumn
+     * @private
+     */
+    _formatColumn: function(newValue) {
+      if(newValue) {
+        this._render(accounting.formatColumn(newValue, this.symbol));
+      }
+    },
+    /**
+     * @method _formatNumber
+     * @private
+     */
+    _formatNumber: function(newValue) {
+      if(newValue) {
+        this._render(accounting.formatNumber(newValue, this.precision));
+      }
+    },
+    /**
+     * @method _toFixed
+     * @private
+     */
+    _toFixed: function(newValue) {
+      if(newValue) {
+        this._render(accounting.toFixed(newValue, this.precision));
+      }
+    },
+    /**
+     * @method _unformat
+     * @private
+     */
+    _unformat: function(newValue) {
+      if(newValue) {
+        this._render(accounting.unformat(newValue));
+      }
+    },
+    /**
+     *
+     * @method _render
+     * @param value
+     * @private
+     */
+    _render: function(value) {
+      this.$.content.innerHTML = value;
+    }
+
+  });
+
+</script>
