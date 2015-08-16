@@ -7,7 +7,19 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
 
 #### Example:
 
-    <accounting-element formatMoney="1234566"></accounting-element> // $1,234,566.00
+    <accounting-element formatMoney="1234566"></accounting-element> -> $1,234,566.00
+
+    <accounting-element
+      format-money="500000"
+      symbol="€"
+      thousand="."
+      decimal=","></accounting-element> -> €500.000,00
+
+    <accounting-element format-number="11987612"></accounting-element> -> 11,987,612
+
+    <accounting-element to-fixed="22987612.1234" precision="2"></accounting-element> -> 22987612.12
+
+    <accounting-element unformat="998,761.2"></accounting-element> -> 998761.2
 
 @element accounting-element
 @homepage http://Granze.github.io/accounting-element
@@ -122,7 +134,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatMoney: function(newValue) {
       if(newValue) {
-        if(this.precision === null) {this.precision = 2};
+        if(this.precision === null) {this.precision = 2}
         this._render(accounting.formatMoney(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
       }
     },
@@ -132,7 +144,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatColumn: function(newValue) {
       if(newValue) {
-        if(this.precision === null) {this.precision = 2};
+        if(this.precision === null) {this.precision = 2}
         this._render(accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
       }
     },
@@ -142,7 +154,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatNumber: function(newValue) {
       if(newValue) {
-        if(this.precision === null) {this.precision = 0};
+        if(this.precision === null) {this.precision = 0}
         this._render(accounting.formatNumber(newValue, this.precision));
       }
     },
