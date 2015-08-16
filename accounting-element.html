@@ -15,6 +15,12 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
 @demo
 -->
 <dom-module id="accounting-element">
+  <style>
+    :host{
+      display: inline-block;
+      font-family: 'Roboto Mono', monospace;
+    }
+  </style>
 
   <template>
     <div id="content"></div>
@@ -87,17 +93,44 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
       /**
        * @property precision
        * @type Number
-       * @default null
+       * @default 2
        */
       precision: {
         type: Number,
-        value: null
+        value: 2
+      },
+      /**
+       * @property thousand
+       * @type String
+       * @default ,
+       */
+      thousand: {
+        type: String,
+        value: ','
+      },
+      /**
+       * @property decimal
+       * @type String
+       * @default .
+       */
+      decimal: {
+        type: String,
+        value: '.'
+      },
+      /**
+       * @property format
+       * @type String
+       * @default %s%v
+       */
+      format: {
+        type: String,
+        value: '%s%v'
       }
     },
     observers: [
-      '_formatMoney(formatMoney, symbol)',
-      '_formatColumn(formatColumn, symbol)',
-      '_formatNumber(formatNumber, precision)',
+      '_formatMoney(formatMoney, symbol, precision, thousand, decimal, format)',
+      '_formatColumn(formatColumn, symbol, precision, thousand, decimal, format)',
+      '_formatNumber(formatNumber, precision, thousand, decimal)',
       '_toFixed(toFixed, precision)'
     ],
     /**
@@ -106,7 +139,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatMoney: function(newValue) {
       if(newValue) {
-        this._render(accounting.formatMoney(newValue, this.symbol));
+        this._render(accounting.formatMoney(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.format));
       }
     },
     /**
@@ -115,7 +148,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatColumn: function(newValue) {
       if(newValue) {
-        this._render(accounting.formatColumn(newValue, this.symbol));
+        this._render(accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.format));
       }
     },
     /**
