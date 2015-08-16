@@ -38,39 +38,23 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
       /**
        * @property formatMoney
        * @type Number
-       * @default null
        */
-      formatMoney: {
-        type: Number,
-        value: null
-      },
+      formatMoney: Number,
       /**
        * @property formatColumn
        * @type Array
-       * @default null
        */
-      formatColumn: {
-        type: Array,
-        value: null
-      },
+      formatColumn: Array,
       /**
        * @property formatNumber
        * @type Number
-       * @default null
        */
-      formatNumber: {
-        type: Number,
-        value: null
-      },
+      formatNumber: Number,
       /**
        * @property toFixed
        * @type Number
-       * @default null
        */
-      toFixed: {
-        type: Number,
-        value: null
-      },
+      toFixed: Number,
       /**
        * @property unformat
        * @type Number
@@ -93,11 +77,10 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
       /**
        * @property precision
        * @type Number
-       * @default 2
        */
       precision: {
         type: Number,
-        value: 2
+        value: null
       },
       /**
        * @property thousand
@@ -122,14 +105,14 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
        * @type String
        * @default %s%v
        */
-      format: {
+      formatOpt: {
         type: String,
         value: '%s%v'
       }
     },
     observers: [
-      '_formatMoney(formatMoney, symbol, precision, thousand, decimal, format)',
-      '_formatColumn(formatColumn, symbol, precision, thousand, decimal, format)',
+      '_formatMoney(formatMoney, symbol, precision, thousand, decimal, formatOpt)',
+      '_formatColumn(formatColumn, symbol, precision, thousand, decimal, formatOpt)',
       '_formatNumber(formatNumber, precision, thousand, decimal)',
       '_toFixed(toFixed, precision)'
     ],
@@ -139,7 +122,8 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatMoney: function(newValue) {
       if(newValue) {
-        this._render(accounting.formatMoney(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.format));
+        if(this.precision === null) {this.precision = 2};
+        this._render(accounting.formatMoney(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
       }
     },
     /**
@@ -148,7 +132,8 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatColumn: function(newValue) {
       if(newValue) {
-        this._render(accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.format));
+        if(this.precision === null) {this.precision = 2};
+        this._render(accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
       }
     },
     /**
@@ -157,6 +142,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      */
     _formatNumber: function(newValue) {
       if(newValue) {
+        if(this.precision === null) {this.precision = 0};
         this._render(accounting.formatNumber(newValue, this.precision));
       }
     },
@@ -179,7 +165,6 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
       }
     },
     /**
-     *
      * @method _render
      * @param value
      * @private
