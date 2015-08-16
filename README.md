@@ -4,7 +4,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
 
 ## Documentation and Demo
 
-See the [component page](http://Granze.github.io/flip-clock) for more information.
+See the [component page](http://Granze.github.io/accounting-element) for more information.
 
 ## Installation
 
