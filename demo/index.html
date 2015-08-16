@@ -1,19 +1,32 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>accounting-element Demo</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../accounting-element.html">
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>accounting-element Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../accounting-element.html">
+</head>
+<style>
 
-  <accounting-element format-money="500000" symbol="€"></accounting-element>
-  <accounting-element format-column="[7612, 324234, 233, 2]"></accounting-element>
-  <accounting-element format-number="11987612"></accounting-element>
-  <accounting-element to-fixed="22987612.1234" precision="2"></accounting-element>
-  <accounting-element unformat="998,761.2"></accounting-element>
+</style>
+<body>
 
-  </body>
+  <div class="wrapper">
+
+    <h2>Format money</h2>
+    <accounting-element format-money="12345678"></accounting-element>
+    <br>
+    <accounting-element format-money="500000" symbol="€" thousand="." decimal=","></accounting-element>
+    <h2>Format Number</h2>
+    <accounting-element format-number="11987612"></accounting-element>
+    <h2>To fixed</h2>
+    <accounting-element to-fixed="22987612.1234" precision="2"></accounting-element>
+    <h2>Unformat</h2>
+    <accounting-element unformat="998,761.2"></accounting-element>
+
+  </div>
+
+</body>
 </html>
+
