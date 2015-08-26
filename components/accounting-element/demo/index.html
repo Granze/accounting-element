@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>accounting-element Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../accounting-element.html">
+  <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    .wrapper {
+      width: 960px;
+      margin: 0 auto;
+      font-family: 'Roboto', sans-serif;
+    }
+    .wrapper h2 {
+      margin-bottom: 0;
+      text-align: center;
+    }
+    .wrapper p {
+      margin-top: 0;
+      text-align: center;
+    }
+    .numbers {
+      width: 500px;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #fdebc9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <h2>Format money</h2>
+    <p>format any number into currency</p>
+
+    <div class="numbers">
+      <p>(12345678)</p>
+      <accounting-element format-money="12345678"></accounting-element>
+    </div>
+    <br>
+
+    <div class="numbers">
+      <p>(500000 + custom symbol, decimal and thousand separator)</p>
+      <accounting-element format-money="500000" symbol="€" thousand="." decimal=","></accounting-element>
+    </div>
+
+    <h2>Format Column</h2>
+    <p>Format a list of values for column-display</p>
+
+    <div class="numbers">
+      <p>([123.5, 3456.49, 777888.99, 12345678, -5432])</p>
+      <accounting-element format-column="[123.5, 3456.49, 777888.99, 12345678, -5432]"></accounting-element>
+    </div>
+
+    <h2>Format Number</h2>
+    <p>Format a number with custom precision and localisation</p>
+
+    <div class="numbers">
+      <p>(11987612)</p>
+      <accounting-element format-number="11987612"></accounting-element>
+    </div>
+
+    <h2>To fixed</h2>
+    <p>Better rounding for floating point numbers</p>
+
+    <div class="numbers">
+      <p>(22987612.1234 round precision set to 2)</p>
+      <accounting-element to-fixed="22987612.1234" precision="2"></accounting-element>
+    </div>
+
+    <h2>Unformat</h2>
+    <p>Parse a value from any formatted number/currency string</p>
+
+    <div class="numbers">
+      <p>(998,761.2)</p>
+      <accounting-element unformat="998,761.2"></accounting-element>
+    </div>
+
+  </div>
+
+</body>
+</html>
+

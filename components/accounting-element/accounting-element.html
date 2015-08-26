@@ -1,0 +1,203 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="accounting-import.html">
+
+<!--
+Element wrapper for the [accounting.js](http://openexchangerates.github.io/accounting.js/) library.
+
+
+#### Example:
+
+    <accounting-element formatMoney="1234566"></accounting-element> -> $1,234,566.00
+
+    <accounting-element
+      format-money="500000"
+      symbol="€"
+      thousand="."
+      decimal=","></accounting-element> -> €500.000,00
+
+    <accounting-element format-number="11987612"></accounting-element> -> 11,987,612
+
+    <accounting-element to-fixed="22987612.1234" precision="2"></accounting-element> -> 22987612.12
+
+    <accounting-element unformat="998,761.2"></accounting-element> -> 998761.2
+
+@element accounting-element
+@homepage http://Granze.github.io/accounting-element
+@author Maurizio Mangione
+@demo
+-->
+<dom-module id="accounting-element">
+  <style>
+    :host{
+      display: inline-block;
+      font-family: 'Roboto Mono', monospace;
+    }
+  </style>
+
+  <template>
+    <div id="content"></div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'accounting-element',
+
+    properties: {
+      /**
+       * @property formatMoney
+       * @type Number
+       */
+      formatMoney: Number,
+      /**
+       * @property formatColumn
+       * @type Array
+       */
+      formatColumn: Array,
+      /**
+       * @property formatNumber
+       * @type Number
+       */
+      formatNumber: Number,
+      /**
+       * @property toFixed
+       * @type Number
+       */
+      toFixed: Number,
+      /**
+       * @property unformat
+       * @type Number
+       * @default null
+       */
+      unformat: {
+        type: String,
+        value: null,
+        observer: '_unformat'
+      },
+      /**
+       * @property symbol
+       * @type String
+       * @default $
+       */
+      symbol: {
+        type: String,
+        value: '$'
+      },
+      /**
+       * @property precision
+       * @type Number
+       * @default null
+       */
+      precision: {
+        type: Number,
+        value: null
+      },
+      /**
+       * @property thousand
+       * @type String
+       * @default ,
+       */
+      thousand: {
+        type: String,
+        value: ','
+      },
+      /**
+       * @property decimal
+       * @type String
+       * @default .
+       */
+      decimal: {
+        type: String,
+        value: '.'
+      },
+      /**
+       * @property format
+       * @type String
+       * @default %s%v
+       */
+      formatOpt: {
+        type: String,
+        value: '%s%v'
+      }
+    },
+    observers: [
+      '_formatMoney(formatMoney, symbol, precision, thousand, decimal, formatOpt)',
+      '_formatColumn(formatColumn, symbol, precision, thousand, decimal, formatOpt)',
+      '_formatNumber(formatNumber, precision, thousand, decimal)',
+      '_toFixed(toFixed, precision)'
+    ],
+    /**
+     * @method _formatMoney
+     * @param newValue
+     * @private
+     */
+    _formatMoney: function(newValue) {
+      if(newValue) {
+        if(this.precision === null) {this.precision = 2}
+        this._render(accounting.formatMoney(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
+      }
+    },
+    /**
+     * @method _formatColumn
+     * @param newValue
+     * @private
+     */
+    _formatColumn: function(newValue) {
+      if(newValue) {
+        if(this.precision === null) {this.precision = 2}
+
+        var tableData = accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt);
+
+        var column = tableData.map(function(row) {
+          return '<tr><td style="white-space: pre;">' + row + '</td></tr>';
+        });
+
+        this._render('<table class="table-data">' + column.join('') + '</table>');
+      }
+    },
+    /**
+     * @method _formatNumber
+     * @param newValue
+     * @private
+     */
+    _formatNumber: function(newValue) {
+      if(newValue) {
+        if(this.precision === null) {this.precision = 0}
+        this._render(accounting.formatNumber(newValue, this.precision));
+      }
+    },
+    /**
+     * @method _toFixed
+     * @param newValue
+     * @private
+     */
+    _toFixed: function(newValue) {
+      if(newValue) {
+        this._render(accounting.toFixed(newValue, this.precision));
+      }
+    },
+    /**
+     * @method _unformat
+     * @param newValue
+     * @private
+     */
+    _unformat: function(newValue) {
+      if(newValue) {
+        this._render(accounting.unformat(newValue));
+      }
+    },
+    /**
+     * @method _render
+     * @param value
+     * @private
+     */
+    _render: function(value) {
+      this.$.content.innerHTML = value;
+    }
+
+  });
+
+</script>
