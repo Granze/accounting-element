@@ -89,6 +89,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
       /**
        * @property precision
        * @type Number
+       * @default null
        */
       precision: {
         type: Number,
@@ -130,6 +131,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
     ],
     /**
      * @method _formatMoney
+     * @param newValue
      * @private
      */
     _formatMoney: function(newValue) {
@@ -140,16 +142,25 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
     },
     /**
      * @method _formatColumn
+     * @param newValue
      * @private
      */
     _formatColumn: function(newValue) {
       if(newValue) {
         if(this.precision === null) {this.precision = 2}
-        this._render(accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
+
+        var tableData = accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt);
+
+        var column = tableData.map(function(row) {
+          return '<tr><td style="white-space: pre;">' + row + '</td></tr>';
+        });
+
+        this._render('<table class="table-data">' + column.join('') + '</table>');
       }
     },
     /**
      * @method _formatNumber
+     * @param newValue
      * @private
      */
     _formatNumber: function(newValue) {
@@ -160,6 +171,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
     },
     /**
      * @method _toFixed
+     * @param newValue
      * @private
      */
     _toFixed: function(newValue) {
@@ -169,6 +181,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
     },
     /**
      * @method _unformat
+     * @param newValue
      * @private
      */
     _unformat: function(newValue) {
