@@ -1,6 +1,6 @@
 {
   "name": "accounting-element",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "authors": [
     "Maurizio Mangione <granzebru@gmail.com>"
   ],
@@ -23,7 +23,7 @@
     "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.1.0",
+    "polymer": "Polymer/polymer#^1.2.0",
     "accounting.js": "~0.4.1"
   },
   "devDependencies": {
