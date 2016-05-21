@@ -23,7 +23,7 @@
     "/demo/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.0",
+    "polymer": "Polymer/polymer#^1.4.0",
     "accounting.js": "~0.4.1"
   },
   "devDependencies": {
