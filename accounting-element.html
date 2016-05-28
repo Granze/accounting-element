@@ -135,7 +135,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      * @private
      */
     _formatMoney: function(newValue) {
-      if(newValue) {
+      if(newValue !== null) {
         if(this.precision === null) {this.precision = 2}
         this._render(accounting.formatMoney(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt));
       }
@@ -146,7 +146,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      * @private
      */
     _formatColumn: function(newValue) {
-      if(newValue) {
+      if(newValue !== null) {
         if(this.precision === null) {this.precision = 2}
 
         var tableData = accounting.formatColumn(newValue, this.symbol, this.precision, this.thousand, this.decimal, this.formatOpt);
@@ -164,7 +164,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      * @private
      */
     _formatNumber: function(newValue) {
-      if(newValue) {
+      if(newValue !== null) {
         if(this.precision === null) {this.precision = 0}
         this._render(accounting.formatNumber(newValue, this.precision));
       }
@@ -175,7 +175,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      * @private
      */
     _toFixed: function(newValue) {
-      if(newValue) {
+      if(newValue !== null) {
         this._render(accounting.toFixed(newValue, this.precision));
       }
     },
@@ -185,7 +185,7 @@ Element wrapper for the [accounting.js](http://openexchangerates.github.io/accou
      * @private
      */
     _unformat: function(newValue) {
-      if(newValue) {
+      if(newValue !== null) {
         this._render(accounting.unformat(newValue));
       }
     },
